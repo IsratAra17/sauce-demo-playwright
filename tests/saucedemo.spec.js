@@ -32,3 +32,15 @@ test('Add a product to cart and verify it', async ({ page }) => {
 
   expect(cartProduct.trim()).toBe(productName.trim());
 });
+test('User logs out successfully', async ({ page }) => {
+  await page.click('#react-burger-menu-btn');
+
+  // Wait for logout button to appear
+  await page.waitForSelector('#logout_sidebar_link', { state: 'visible' });
+
+  // Click logout
+  await page.click('#logout_sidebar_link');
+
+  // Verify redirect
+  await expect(page).toHaveURL('https://www.saucedemo.com/');
+});
